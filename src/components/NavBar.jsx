@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './NavBar.css';
+import './NavBar.scss';
 
 const NavBar = () => (
   <nav className="header__nav">
     <ul className="navbar">
-      <li><Link to="/sign-up">Sign Up</Link></li>
+      <Link to="/sign-up"><li className="btn btn-primary btn-red">Sign Up</li></Link>
     </ul>
   </nav>
 );

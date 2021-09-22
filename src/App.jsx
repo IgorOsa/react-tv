@@ -5,11 +5,14 @@ import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import NotFoundPage from './pages/NotFoundPage';
+// import Header from './components/Header';
+import Hero from './components/Hero';
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App bg-dark text-white">
+        <Hero />
         <Switch>
           <Route path="/" component={HomePage} exact />
           <Route path="/sign-in" component={SignInPage} />

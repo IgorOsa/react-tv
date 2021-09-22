@@ -1,0 +1,12 @@
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 75px 0;
+}
+
+.hero-card__header {
+  max-width: 600px;
+}

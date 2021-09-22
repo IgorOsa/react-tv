@@ -1,12 +1,12 @@
 import React from 'react';
-
-import Header from '../components/Header';
+import { Container, Row } from 'react-bootstrap';
 
 const HomePage = () => (
-  <>
-    <Header />
-    <h1>This is home page!</h1>
-  </>
+  <Container>
+    <Row>
+      <h1>This is home page!</h1>
+    </Row>
+  </Container>
 );
 
 export default HomePage;
