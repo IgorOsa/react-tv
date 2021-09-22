@@ -1,9 +1,9 @@
 import React from 'react';
 
 const SignInPage = () => (
-    <>
-        <h1>This is SignInPage page!</h1>
-    </>
+  <>
+    <h1>This is Sign In Page!</h1>
+  </>
 );
 
 export default SignInPage;

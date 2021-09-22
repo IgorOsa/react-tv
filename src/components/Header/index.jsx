@@ -1,18 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from './components/Logo';
 import NavBar from './components/NavBar';
-import { Link } from 'react-router-dom';
 import './index.css';
 
-const Header = () => {
-    return (
-        <header className="header">
-            <Link to="/">
-                <Logo />
-            </Link>
-            <NavBar />
-        </header>
-    );
-}
+const Header = () => (
+  <header className="header">
+    <Link to="/">
+      <Logo />
+    </Link>
+    <NavBar />
+  </header>
+);
 
 export default Header;
