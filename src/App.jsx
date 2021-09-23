@@ -7,6 +7,7 @@ import SignUpPage from './pages/SignUp';
 import NotFoundPage from './pages/NotFoundPage';
 // import Header from './components/Header';
 import Hero from './components/Hero';
+import ShowPage from './pages/ShowPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" component={HomePage} exact />
           <Route path="/sign-in" component={SignInPage} />
           <Route path="/sign-up" component={SignUpPage} />
+          <Route path="/show/:id" component={ShowPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>
