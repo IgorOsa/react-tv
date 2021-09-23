@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import showsReducer from '../features/shows/showsSlice';
+import showsReducer, { SHOWS_FEATURE_KEY } from '../features/shows/showsSlice';
 
 const store = configureStore({
   reducer: {
-    shows: showsReducer,
+    [SHOWS_FEATURE_KEY]: showsReducer,
   },
 });
 
