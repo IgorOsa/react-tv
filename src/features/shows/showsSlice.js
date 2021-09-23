@@ -10,7 +10,7 @@ export const fetchShowsAsync = createAsyncThunk(
   'shows/fetchShows',
   async () => {
     const response = await fetchShows();
-    return response;
+    return response.data;
   },
 );
 

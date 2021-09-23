@@ -1,4 +1,6 @@
-// A mock function to mimic making an async request for data
+import axios from 'axios';
+
 export default function fetchShows() {
-  return fetch('https://api.tvmaze.com/shows').then((r) => r.json());
+  const API_URL = 'https://api.tvmaze.com/shows';
+  return axios.get(API_URL);
 }
