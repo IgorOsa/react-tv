@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -17,7 +16,7 @@ const ShowPage = ({ match }) => {
   return (
     <Container className="pb-5">
       <Row>
-        <Col className="text-center pt-5 p-4">
+        <Col className="text-center pt-4 pb-2">
           <h2>
             {show.name}
           </h2>
@@ -30,7 +29,7 @@ const ShowPage = ({ match }) => {
           alt={show.name}
         />
         <Col className="col-12 col-md-7 col-lg-7 col-xl-8">
-          <p>{show.summary.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+          <p>{show && show.summary && show.summary.replace(/<\/?[^>]+(>|$)/g, '')}</p>
         </Col>
       </Row>
     </Container>
