@@ -1,5 +1,6 @@
 import React from 'react';
 import './Hero.scss';
+import { Link } from 'react-router-dom';
 import HeroImage from '../assets/netflix-hero.jpg';
 import Header from './Header';
 
@@ -18,6 +19,7 @@ const Hero = () => (
       <h1 className="hero-card__header display-5 fw-bold text-white">Unlimited movies, TV shows, and more.</h1>
       <div className="col-lg-6 mx-auto">
         <p className="fs-5 mb-4 text-white">Watch anywhere. Cancel anytime.</p>
+        <Link to="/signup" className="me-2"><li className="btn btn-primary btn-red">Sign Up</li></Link>
       </div>
     </div>
   </div>

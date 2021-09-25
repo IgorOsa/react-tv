@@ -1,3 +1,5 @@
+@import '~bootstrap/scss/bootstrap';
+
 * {
   margin: 0;
   padding: 0;
@@ -6,9 +8,5 @@
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #f3f3f3;
-  color: #333;
-  font-size: 16px;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
+  background-color: rgba(33, 37, 41, 1);
 }

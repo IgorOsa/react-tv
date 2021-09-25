@@ -1,4 +1,5 @@
 import React from 'react';
+import './firebase/config';
 import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -8,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage';
 // import Header from './components/Header';
 import Hero from './components/Hero';
 import ShowPage from './pages/ShowPage';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -16,8 +18,9 @@ function App() {
         <Hero />
         <Switch>
           <Route path="/" component={HomePage} exact />
-          <Route path="/sign-in" component={SignInPage} />
-          <Route path="/sign-up" component={SignUpPage} />
+          <Route exact path="/profile/:id" component={Profile} />
+          <Route path="/signin" component={SignInPage} />
+          <Route path="/signup" component={SignUpPage} />
           <Route path="/show/:id" component={ShowPage} />
           <Route component={NotFoundPage} />
         </Switch>

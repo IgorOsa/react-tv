@@ -5,7 +5,7 @@ import './NavBar.scss';
 const NavBar = () => (
   <nav className="header__nav">
     <ul className="navbar">
-      <Link to="/sign-up"><li className="btn btn-primary btn-red">Sign Up</li></Link>
+      <Link to="/signin" className=""><li className="btn btn-primary btn-red">Sign In</li></Link>
     </ul>
   </nav>
 );
