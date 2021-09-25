@@ -20,7 +20,7 @@ const SignUpPage = (props) => {
       setLoading(true);
       try {
         newUser = await signup(values);
-        // reset();
+        formik.resetForm();
       } catch (error) {
         console.log(error);
       }
@@ -33,6 +33,8 @@ const SignUpPage = (props) => {
       }
     },
   });
+
+  const loaderStyle = `${isLoading ? 'spinner-border spinner-border-sm ms-2' : ''}`;
 
   return (
     <Container className="pb-5">
@@ -80,9 +82,10 @@ const SignUpPage = (props) => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" className="btn-red" type="submit" style={{ width: '5rem' }} disabled={isLoading}>
               Submit
             </Button>
+            <div className={loaderStyle} role="status" aria-hidden="true" />
           </Form>
         </Col>
       </Row>

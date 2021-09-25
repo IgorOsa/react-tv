@@ -9,7 +9,6 @@ export const signup = async ({
     .createUserWithEmailAndPassword(email, password);
   const { user } = resp;
   await user.updateProfile({ displayName: `${name}` });
-  // await createUserDocument(user);
   return user;
 };
 

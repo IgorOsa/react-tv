@@ -10,22 +10,26 @@ import NotFoundPage from './pages/NotFoundPage';
 import Hero from './components/Hero';
 import ShowPage from './pages/ShowPage';
 import Profile from './pages/Profile';
+import { UserProvider } from './firebase/UserProvider';
+import PrivateRoute from './router/PrivateRoute';
 
 function App() {
   return (
-    <Router>
-      <div className="App bg-dark text-white">
-        <Hero />
-        <Switch>
-          <Route path="/" component={HomePage} exact />
-          <Route exact path="/profile/:id" component={Profile} />
-          <Route path="/signin" component={SignInPage} />
-          <Route path="/signup" component={SignUpPage} />
-          <Route path="/show/:id" component={ShowPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </div>
-    </Router>
+    <UserProvider>
+      <Router>
+        <div className="App bg-dark text-white">
+          <Hero />
+          <Switch>
+            <Route path="/" component={HomePage} exact />
+            <PrivateRoute exact path="/profile/:id" component={Profile} />
+            <Route path="/signin" component={SignInPage} />
+            <Route path="/signup" component={SignUpPage} />
+            <Route path="/show/:id" component={ShowPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 

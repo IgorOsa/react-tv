@@ -1,1 +1,20 @@
+@import './shared/variables';
 
+.color-red {
+  color: $red;
+}
+
+.btn-red,
+.btn-red:hover,
+.btn-red:active,
+.btn-red:disabled {
+  background-color: $red;
+  line-height: normal;
+  padding: 7px 17px;
+  font-weight: 400;
+  font-size: 1rem;
+  border-radius: 3px;
+  color: #fff;
+  white-space: nowrap;
+  border: none;
+}

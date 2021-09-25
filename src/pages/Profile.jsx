@@ -15,7 +15,9 @@ const Profile = () => {
         </Col>
       </Row>
       <Row className="d-flex justify-content-center">
-        <Col className="col-6" />
+        <Col className="col-6">
+          User`s data data here :)
+        </Col>
       </Row>
     </Container>
   );

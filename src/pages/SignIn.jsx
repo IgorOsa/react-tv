@@ -1,19 +1,47 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import {
   Col, Container, Form, Row, Button,
 } from 'react-bootstrap';
+import { login } from '../firebase/auth';
 
-const SignInPage = () => {
+const SignInPage = (props) => {
+  const [isLoading, setLoading] = useState(false);
+
+  const routeOnLogin = async (user) => {
+    const token = await user.getIdTokenResult();
+    if (token.claims.admin) {
+      props.history.push('/users');
+    } else {
+      props.history.push(`/profile/${user.uid}`);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (data) => {
+      let user;
+      setLoading(true);
+      try {
+        user = await login(data);
+        formik.resetForm();
+      } catch (error) {
+        console.log(error);
+      }
+
+      if (user) {
+        routeOnLogin(user);
+      } else {
+        setLoading(false);
+      }
     },
   });
+
+  const loaderStyle = `${isLoading ? 'spinner-border spinner-border-sm ms-2' : ''}`;
 
   return (
     <Container className="pb-5">
@@ -47,9 +75,10 @@ const SignInPage = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" className="btn-red" type="submit" style={{ width: '5rem' }} disabled={isLoading}>
               Submit
             </Button>
+            <div className={loaderStyle} role="status" aria-hidden="true" />
           </Form>
         </Col>
       </Row>
