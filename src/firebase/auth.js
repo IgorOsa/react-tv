@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import createUserDocument from './user';
 
 export const signup = async ({
   name, email, password,
@@ -9,6 +10,7 @@ export const signup = async ({
     .createUserWithEmailAndPassword(email, password);
   const { user } = resp;
   await user.updateProfile({ displayName: `${name}` });
+  await createUserDocument(user);
   return user;
 };
 
