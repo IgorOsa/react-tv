@@ -6,12 +6,12 @@ import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import NotFoundPage from './pages/NotFoundPage';
-// import Header from './components/Header';
 import Hero from './components/Hero';
 import ShowPage from './pages/ShowPage';
 import Profile from './pages/Profile';
 import { UserProvider } from './firebase/UserProvider';
 import PrivateRoute from './router/PrivateRoute';
+import ProfileRedirect from './router/ProfileRedirect';
 
 function App() {
   return (
@@ -22,8 +22,8 @@ function App() {
           <Switch>
             <Route path="/" component={HomePage} exact />
             <PrivateRoute exact path="/profile/:id" component={Profile} />
-            <Route path="/signin" component={SignInPage} />
-            <Route path="/signup" component={SignUpPage} />
+            <ProfileRedirect exact path="/signup" component={SignUpPage} />
+            <ProfileRedirect exact path="/signin" component={SignInPage} />
             <Route path="/show/:id" component={ShowPage} />
             <Route component={NotFoundPage} />
           </Switch>

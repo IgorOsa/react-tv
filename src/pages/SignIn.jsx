@@ -10,12 +10,7 @@ const SignInPage = (props) => {
   const [isLoading, setLoading] = useState(false);
 
   const routeOnLogin = async (user) => {
-    const token = await user.getIdTokenResult();
-    if (token.claims.admin) {
-      props.history.push('/users');
-    } else {
-      props.history.push(`/profile/${user.uid}`);
-    }
+    props.history.push(`/profile/${user.uid}`);
   };
 
   const formik = useFormik({
