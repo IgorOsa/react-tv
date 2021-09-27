@@ -10,7 +10,7 @@ const Hero = () => {
 
   return (
     <div
-      className="jumbotron jumbotron-fluid hero-image text-secondary text-center"
+      className="hero hero-image text-secondary text-center"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${HeroImage})`,
         backgroundPosition: 'center',

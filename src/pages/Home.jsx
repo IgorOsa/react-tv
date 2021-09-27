@@ -4,9 +4,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { selectTopShows, fetchShowsAsync } from '../features/shows/showsSlice';
 
-import './HomePage.scss';
+import './Home.scss';
 
-function HomePage() {
+function Home() {
   const shows = useSelector((state) => selectTopShows(state, 12));
   const dispatch = useDispatch();
 
@@ -30,10 +30,10 @@ function HomePage() {
                   <img src={el.image.medium} alt={el.name} />
                   <div className="card-body">
                     <h5 className="card-title">{el.name}</h5>
-                    <p className="card-text">
+                    {/* <p className="card-text">
                       {el.summary.replace(/<\/?[^>]+(>|$)/g, '').split(' ').slice(0, 16).join(' ')}
                       ...
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </Link>
@@ -45,4 +45,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Home;
