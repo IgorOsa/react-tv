@@ -26,7 +26,7 @@ export const fetchShowByIdAsync = createAsyncThunk(
 );
 
 export const showsSlice = createSlice({
-  name: 'shows',
+  name: SHOWS_FEATURE_KEY,
   initialState,
   reducers: { },
   extraReducers: (builder) => {
