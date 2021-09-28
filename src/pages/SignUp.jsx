@@ -22,7 +22,7 @@ const SignUpPage = (props) => {
         newUser = await signup(values);
         formik.resetForm();
       } catch (error) {
-        console.log(error);
+        alert(error.message);
       }
       // alert(JSON.stringify(values, null, 2));
       if (newUser) {

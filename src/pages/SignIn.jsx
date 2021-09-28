@@ -25,7 +25,7 @@ const SignInPage = (props) => {
         user = await login(data);
         formik.resetForm();
       } catch (error) {
-        console.log(error);
+        alert(error.message);
       }
 
       if (user) {
