@@ -28,7 +28,11 @@ export const fetchShowByIdAsync = createAsyncThunk(
 export const showsSlice = createSlice({
   name: SHOWS_FEATURE_KEY,
   initialState,
-  reducers: { },
+  reducers: {
+    setShows: (state, action) => {
+      state.value = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchShowsAsync.pending, (state) => {
@@ -48,10 +52,12 @@ export const showsSlice = createSlice({
   },
 });
 
-export const selectShows = (state) => state.shows.value;
+export const { setShows } = showsSlice.actions;
+
+export const selectShows = (state) => state[SHOWS_FEATURE_KEY].value;
 
 export const selectTopShows = (state, n) => {
-  const { value } = state.shows;
+  const { value } = state[SHOWS_FEATURE_KEY];
 
   const arr = [...value];
 
@@ -68,7 +74,7 @@ export const selectTopShows = (state, n) => {
 };
 
 export const selectCurrentShow = (state) => {
-  const show = state.shows.currentShow;
+  const show = state[SHOWS_FEATURE_KEY].currentShow;
   return show;
 };
 
