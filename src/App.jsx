@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import { UserProvider } from './firebase/UserProvider';
 import PrivateRoute from './router/PrivateRoute';
 import ProfileRedirect from './router/ProfileRedirect';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -19,14 +20,17 @@ function App() {
       <Router>
         <div className="App bg-dark text-white">
           <Hero />
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <PrivateRoute exact path="/profile/:id" component={Profile} />
-            <ProfileRedirect exact path="/signup" component={SignUpPage} />
-            <ProfileRedirect exact path="/signin" component={SignInPage} />
-            <Route path="/show/:id" component={Show} />
-            <Route component={NotFound} />
-          </Switch>
+          <main className="main">
+            <Switch>
+              <Route path="/" component={Home} exact />
+              <PrivateRoute exact path="/profile/:id" component={Profile} />
+              <ProfileRedirect exact path="/signup" component={SignUpPage} />
+              <ProfileRedirect exact path="/signin" component={SignInPage} />
+              <Route path="/show/:id" component={Show} />
+              <Route component={NotFound} />
+            </Switch>
+          </main>
+          <Footer />
         </div>
       </Router>
     </UserProvider>
