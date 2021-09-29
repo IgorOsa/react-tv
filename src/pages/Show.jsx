@@ -6,13 +6,36 @@ import { faHeart, faStar } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchShowByIdAsync, selectCurrentShow } from '../features/shows/showsSlice';
+import { useSession } from '../firebase/UserProvider';
+import firestore from '../firebase/config';
 
 const Show = ({ match }) => {
+  const { user } = useSession();
   const { id } = match.params;
   const dispatch = useDispatch();
   const show = useSelector(selectCurrentShow);
   const [isLiked, setIsLiked] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
+
+  useEffect(() => {
+    if (user && user.uid != null) {
+      const docRef = firestore.collection('users').doc(user.uid);
+      const unsubscribe = docRef.onSnapshot((doc) => {
+        if (doc.exists) {
+          const documentData = doc.data();
+          const { favorites, likes } = documentData;
+          if (likes.includes(id)) {
+            setIsLiked(true);
+          }
+          if (favorites.includes(id)) {
+            setIsStarred(true);
+          }
+        }
+      });
+      return unsubscribe;
+    }
+    return null;
+  }, [user]);
 
   useEffect(() => {
     dispatch(fetchShowByIdAsync(id));
@@ -22,8 +45,18 @@ const Show = ({ match }) => {
     setIsLiked(!isLiked);
   };
 
-  const handleStar = () => {
-    setIsStarred(!isStarred);
+  const handleStar = async () => {
+    if (user && user.uid != null) {
+      setIsStarred(!isStarred);
+      const docRef = firestore.collection('users').doc(user.uid);
+      const userData = await docRef.get();
+      let { favorites } = userData.data();
+      const updatedFavs = favorites.filter((el) => el !== id);
+
+      favorites = !isStarred ? [id, ...updatedFavs] : updatedFavs;
+
+      await docRef.update({ favorites });
+    }
   };
 
   return (
@@ -43,7 +76,7 @@ const Show = ({ match }) => {
         />
         <Col className="col-12 col-md-7 col-lg-7 col-xl-8">
           <p>{show && show.summary && show.summary.replace(/<\/?[^>]+(>|$)/g, '')}</p>
-          <button type="button" onClick={handleLike} className="btn__like me-3">
+          <button type="button" onClick={handleLike} className="btn__like me-3" disabled={!user}>
             { !isLiked
               ? (
                 <FontAwesomeIcon
@@ -51,7 +84,7 @@ const Show = ({ match }) => {
                   size="2x"
                   className="d-flex color-red"
                   alt="Like"
-                  title="Like"
+                  title={user ? 'Like' : 'Please, sign-in to like :)'}
                 />
               )
               : (
@@ -64,7 +97,9 @@ const Show = ({ match }) => {
                 />
               )}
           </button>
-          <button type="button" onClick={handleStar} className="btn__star">
+          {user && user.uid
+          && (
+          <button type="button" onClick={handleStar} className="btn__star" disabled={!user}>
             { !isStarred
               ? (
                 <FontAwesomeIcon
@@ -85,6 +120,7 @@ const Show = ({ match }) => {
                 />
               )}
           </button>
+          )}
         </Col>
       </Row>
     </Container>

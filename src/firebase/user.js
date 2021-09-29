@@ -7,6 +7,7 @@ const createUserDocument = async (user) => {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
+    favorites: [],
   };
 
   return docRef.set(userProfile);
