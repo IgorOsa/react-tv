@@ -1,5 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { FormControl, InputGroup } from 'react-bootstrap';
+import {
+  Col,
+  Container, FormControl, InputGroup, Row,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchShowsBySearchQueryAsync, selectSearchQuery, selectSearchResults, setQuery,
@@ -34,19 +38,25 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="col-6 pt-4">
-      <InputGroup size="sm" className="mb-3">
-        <InputGroup.Text id="inputGroup-sizing-sm">Search</InputGroup.Text>
-        <FormControl
-          type="search"
-          role="search"
-          aria-label="Small"
-          aria-describedby="inputGroup-sizing-sm"
-          placeholder="Type to search"
-          onChange={handleChange}
-          value={searchTerm}
-        />
-      </InputGroup>
+    <div className="search-bar">
+      <Container>
+        <Row className="d-flex justify-content-center p-2 m-3">
+          <Col className="col-12">
+            <InputGroup size="sm">
+              <InputGroup.Text id="inputGroup-sizing-sm">Search</InputGroup.Text>
+              <FormControl
+                type="search"
+                role="search"
+                aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm"
+                placeholder="Type to search"
+                onChange={handleChange}
+                value={searchTerm}
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
