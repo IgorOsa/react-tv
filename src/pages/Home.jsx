@@ -23,7 +23,7 @@ function Home() {
       </Row>
       <Row>
         <Col className="text-center pt-4 pb-2">
-          <h2>Top shows</h2>
+          <h2>Shows</h2>
         </Col>
       </Row>
       <Row className="d-flex flex-row">
@@ -31,7 +31,7 @@ function Home() {
           (el) => (
             <Col key={el.id} className="m-2 text-center">
               <Link to={`/show/${el.id}`} className="card__link">
-                <ShowCard name={el.name} image={el.image.medium} />
+                <ShowCard name={el.name} image={el && el.image && el.image.medium} />
               </Link>
             </Col>
           ),
