@@ -19,10 +19,8 @@ const SearchBar = () => {
     const delayDebounceFn = setTimeout(() => {
       if (searchTerm.length > 2) {
         dispatch(fetchShowsBySearchQueryAsync(searchTerm));
-      } else {
-        dispatch(fetchShowsAsync());
       }
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
@@ -34,6 +32,9 @@ const SearchBar = () => {
 
   const handleChange = (e) => {
     const { value } = e.target;
+    if (value === '') {
+      dispatch(fetchShowsAsync());
+    }
     dispatch(setQuery(value));
   };
 

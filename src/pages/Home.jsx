@@ -13,9 +13,9 @@ function Home() {
   const shows = useSelector(selectShows);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchShowsAsync());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchShowsAsync());
+  }, []);
 
   // const genres = new Set(shows.reduce((acc, el) => {
   //   acc.push(...el.genres);
