@@ -1,10 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
+import { FILTERS_FEATURE_KEY } from '../filters/filtersSlice';
 import fetchShows, { fetchShowById } from './showsAPI';
 
 export const SHOWS_FEATURE_KEY = 'shows';
 
 const initialState = {
   value: [],
+  genres: [],
   currentShow: {},
   status: 'idle',
 };
@@ -56,6 +58,15 @@ export const { setShows } = showsSlice.actions;
 
 export const selectShows = (state) => state[SHOWS_FEATURE_KEY].value;
 
+export const selectFilteredShows = createSelector(
+  selectShows,
+  (state) => state[FILTERS_FEATURE_KEY],
+  (shows, filters) => shows.filter((el) => {
+    const { genre } = filters;
+    return genre === '' ? shows : el.genres.includes(genre);
+  }),
+);
+
 export const selectTopShows = (state, n) => {
   const { value } = state[SHOWS_FEATURE_KEY];
 
@@ -79,5 +90,16 @@ export const selectCurrentShow = (state) => {
 };
 
 export const selectIsLoadingShows = (state) => state[SHOWS_FEATURE_KEY].status === 'loading';
+
+export const selectGenres = (state) => {
+  const { value } = state[SHOWS_FEATURE_KEY];
+
+  const genres = new Set(value.reduce((acc, el) => {
+    acc.push(...el.genres);
+    return acc;
+  }, []));
+
+  return ([...genres].sort());
+};
 
 export default showsSlice.reducer;

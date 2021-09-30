@@ -1,28 +1,19 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { selectShows, fetchShowsAsync } from '../features/shows/showsSlice';
+import { fetchShowsAsync, selectFilteredShows } from '../features/shows/showsSlice';
 import './Home.scss';
 import ShowCard from '../components/ShowCard';
 import SearchBar from '../components/SearchBar';
 
 function Home() {
-  // const shows = useSelector((state) => selectTopShows(state, 12));
-  const shows = useSelector(selectShows);
+  const shows = useSelector(selectFilteredShows);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchShowsAsync());
   }, []);
-
-  // const genres = new Set(shows.reduce((acc, el) => {
-  //   acc.push(...el.genres);
-  //   return acc;
-  // }, []));
-
-  // console.log([...genres].sort());
 
   return (
     <>
