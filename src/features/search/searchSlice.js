@@ -41,5 +41,6 @@ export const { setQuery } = searchSlice.actions;
 
 export const selectSearchQuery = (state) => state[SEARCH_FEATURE_KEY].query;
 export const selectSearchResults = (state) => state[SEARCH_FEATURE_KEY].results;
+export const selectIsLoadingSearch = (state) => state[SEARCH_FEATURE_KEY].status === 'loading';
 
 export default searchSlice.reducer;

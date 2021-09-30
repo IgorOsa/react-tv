@@ -78,4 +78,6 @@ export const selectCurrentShow = (state) => {
   return show;
 };
 
+export const selectIsLoadingShows = (state) => state[SHOWS_FEATURE_KEY].status === 'loading';
+
 export default showsSlice.reducer;
