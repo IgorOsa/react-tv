@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { fetchShowsAsync, selectFilteredShows } from '../features/shows/showsSlice';
+import { selectFilteredShows } from '../features/shows/showsSlice';
 import './Home.scss';
 import ShowCard from '../components/ShowCard';
 import SearchBar from '../components/SearchBar';
 
 function Home() {
   const shows = useSelector(selectFilteredShows);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchShowsAsync());
-  }, []);
 
   return (
     <>

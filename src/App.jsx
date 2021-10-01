@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import './firebase/config';
 import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Home from './pages/Home';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
@@ -16,12 +16,17 @@ import ProfileRedirect from './router/ProfileRedirect';
 import Footer from './components/Footer';
 import Loader from './components/Loader';
 import { selectIsLoadingSearch } from './features/search/searchSlice';
-import { selectIsLoadingShows } from './features/shows/showsSlice';
+import { fetchShowsAsync, selectIsLoadingShows } from './features/shows/showsSlice';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const isLoadingSearch = useSelector(selectIsLoadingSearch);
   const isLoadingShows = useSelector(selectIsLoadingShows);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchShowsAsync());
+  }, []);
 
   useEffect(() => {
     if (!isLoadingSearch && !isLoadingShows) {
