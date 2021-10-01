@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Netflix Clone App 
+
+Made with React/Redux Toolkit/Firebase - [Demo link](https://react-tv-c686c.web.app/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
