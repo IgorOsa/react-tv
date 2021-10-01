@@ -26,10 +26,10 @@ const Show = ({ match }) => {
         if (doc.exists) {
           const documentData = doc.data();
           const { favorites, likes } = documentData;
-          if (likes.includes(id)) {
+          if (likes?.includes(id)) {
             setIsLiked(true);
           }
-          if (favorites.includes(id)) {
+          if (favorites?.includes(id)) {
             setIsStarred(true);
           }
         }
