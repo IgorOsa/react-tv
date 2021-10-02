@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
 import { FILTERS_FEATURE_KEY } from '../filters/filtersSlice';
-import fetchShows, { fetchShowById } from './showsAPI';
+import fetchShows from './showsAPI';
 
 export const SHOWS_FEATURE_KEY = 'shows';
 
 const initialState = {
   value: [],
   genres: [],
-  currentShow: {},
   status: 'idle',
 };
 
@@ -15,14 +14,6 @@ export const fetchShowsAsync = createAsyncThunk(
   'shows/fetchShows',
   async () => {
     const response = await fetchShows();
-    return response.data;
-  },
-);
-
-export const fetchShowByIdAsync = createAsyncThunk(
-  'shows/fetchShowById',
-  async (id) => {
-    const response = await fetchShowById(id);
     return response.data;
   },
 );
@@ -43,13 +34,6 @@ export const showsSlice = createSlice({
       .addCase(fetchShowsAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.value = action.payload;
-      })
-      .addCase(fetchShowByIdAsync.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchShowByIdAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.currentShow = action.payload;
       });
   },
 });
@@ -82,11 +66,6 @@ export const selectTopShows = (state, n) => {
   }
 
   return arr.slice(0, n);
-};
-
-export const selectCurrentShow = (state) => {
-  const show = state[SHOWS_FEATURE_KEY].currentShow;
-  return show;
 };
 
 export const selectIsLoadingShows = (state) => state[SHOWS_FEATURE_KEY].status === 'loading';
