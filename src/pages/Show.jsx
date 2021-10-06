@@ -50,7 +50,7 @@ const Show = ({ match }) => {
       if (doc.exists) {
         const showData = doc.data();
         setShowDocument(showData);
-      } else {
+      } else if (user && user.uid != null) {
         // No doc found, need to create
         dispatch(createShowDocumentAsync(id));
       }
@@ -197,7 +197,7 @@ const Show = ({ match }) => {
                       />
                     )}
                 </button>
-                <div className="me-2">{showDocument?.likes}</div>
+                <div className="me-2">{showDocument?.likes || 0}</div>
               </Col>
             </Row>
           </Col>
