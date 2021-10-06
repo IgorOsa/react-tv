@@ -6,17 +6,23 @@ import PropTypes from 'prop-types';
 import { faHeart, faStar } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch } from 'react-redux';
 import { useSession } from '../firebase/UserProvider';
 import firestore from '../firebase/config';
 import { useGetShowByIdQuery } from '../features/shows/showsAPI';
 import Loader from '../components/Loader';
+import {
+  createShowDocumentAsync, updateShowDataAsync,
+} from '../features/shows/showsSlice';
 
 const Show = ({ match }) => {
+  const dispatch = useDispatch();
   const { user } = useSession();
   const { id } = match.params;
   const [isLiked, setIsLiked] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
   const { data: show, error, isLoading } = useGetShowByIdQuery(id);
+  const [showDocument, setShowDocument] = useState(null);
 
   useEffect(() => {
     if (user && user.uid != null) {
@@ -38,8 +44,42 @@ const Show = ({ match }) => {
     return null;
   }, [user]);
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
+  useEffect(async () => {
+    const docRef = await firestore.collection('shows').doc(id);
+    const unsubscribe = docRef.onSnapshot((doc) => {
+      if (doc.exists) {
+        const showData = doc.data();
+        setShowDocument(showData);
+      } else {
+        // No doc found, need to create
+        dispatch(createShowDocumentAsync(id));
+      }
+    });
+    return unsubscribe;
+  }, [id]);
+
+  const handleLike = async () => {
+    if (user && user.uid != null) {
+      setIsLiked(!isLiked);
+
+      const docRef = firestore.collection('users').doc(user.uid);
+      const userData = await docRef.get();
+      let { likes } = userData.data();
+      const updated = likes.filter((el) => el !== id);
+      let likeUpdate = 0;
+
+      if (!isLiked) {
+        likeUpdate = showDocument.likes > 0 ? showDocument.likes + 1 : 1;
+        likes = [id, ...updated];
+      } else {
+        likeUpdate = showDocument.likes > 0 ? showDocument.likes - 1 : 0;
+        likes = updated;
+      }
+
+      await docRef.update({ likes });
+
+      dispatch(updateShowDataAsync({ id, update: { likes: likeUpdate } }));
+    }
   };
 
   const handleStar = async () => {
@@ -110,30 +150,11 @@ const Show = ({ match }) => {
                 </tr>
               </tbody>
             </Table>
-            <button type="button" onClick={handleLike} className="btn__like me-3" disabled={!user}>
-              { !isLiked
-                ? (
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    size="2x"
-                    className="d-flex color-red"
-                    alt="Like"
-                    title={user ? 'Like' : 'Please, sign-in to like :)'}
-                  />
-                )
-                : (
-                  <FontAwesomeIcon
-                    icon={faHeartSolid}
-                    size="2x"
-                    className="d-flex color-red"
-                    alt="UnLike"
-                    title="UnLike"
-                  />
-                )}
-            </button>
-            {user && user.uid
+            <Row>
+              <Col className="d-flex align-items-center">
+                {user && user.uid
                 && (
-                <button type="button" onClick={handleStar} className="btn__star" disabled={!user}>
+                <button type="button" onClick={handleStar} className="btn__star me-3" disabled={!user}>
                   { !isStarred
                     ? (
                       <FontAwesomeIcon
@@ -155,6 +176,30 @@ const Show = ({ match }) => {
                     )}
                 </button>
                 )}
+                <button type="button" onClick={handleLike} className="btn__like me-2" disabled={!user}>
+                  { !isLiked
+                    ? (
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        size="2x"
+                        className="d-flex color-red"
+                        alt="Like"
+                        title={user ? 'Like' : 'Please, sign-in to like :)'}
+                      />
+                    )
+                    : (
+                      <FontAwesomeIcon
+                        icon={faHeartSolid}
+                        size="2x"
+                        className="d-flex color-red"
+                        alt="UnLike"
+                        title="UnLike"
+                      />
+                    )}
+                </button>
+                <div className="me-2">{showDocument?.likes}</div>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </>

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
+import firestore from '../../firebase/config';
 import { FILTERS_FEATURE_KEY } from '../filters/filtersSlice';
 import fetchShows from './showsAPI';
 
@@ -18,6 +19,19 @@ export const fetchShowsAsync = createAsyncThunk(
   },
 );
 
+export const createShowDocumentAsync = createAsyncThunk(
+  'shows/createShowDocumentAsync',
+  async (showID) => {
+    const docRef = firestore.doc(`/shows/${showID}`);
+    return docRef.set({ likes: 0 });
+  },
+);
+
+export const updateShowDataAsync = createAsyncThunk(
+  'shows/updateShowDataAsync',
+  async ({ id, update }) => firestore.collection('shows').doc(id).update(update),
+);
+
 export const showsSlice = createSlice({
   name: SHOWS_FEATURE_KEY,
   initialState,
@@ -34,6 +48,18 @@ export const showsSlice = createSlice({
       .addCase(fetchShowsAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.value = action.payload;
+      })
+      .addCase(createShowDocumentAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createShowDocumentAsync.fulfilled, (state) => {
+        state.status = 'idle';
+      })
+      .addCase(updateShowDataAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateShowDataAsync.fulfilled, (state) => {
+        state.status = 'idle';
       });
   },
 });

@@ -85,20 +85,22 @@ const Profile = () => {
 
         <Row className="d-flex justify-content-center">
           <Col className="text-center">
-            <h3>Your Likes</h3>
+            <h3>You liked</h3>
           </Col>
         </Row>
         <Row className="d-flex justify-content-center mb-4">
-          { userDocument.likes && userDocument.likes.length > 0
-            ? userDocument.likes.map((el) => (
-              <Col className="me-2" key={el}>
-                <Link to={`/show/${el}`} className="card__link">
-                  <ShowCard
-                    name={el}
-                  />
-                </Link>
-              </Col>
-            ))
+          { userDocument?.likes?.length > 0
+            ? userDocument.likes.map((id) => {
+              const show = shows.filter((item) => parseInt(item.id, 10) === parseInt(id, 10))[0];
+
+              return (
+                <Col className="me-2" key={id}>
+                  <Link to={`/show/${id}`} className="card__link">
+                    <ShowCard name={show.name} image={show?.image?.medium} />
+                  </Link>
+                </Col>
+              );
+            })
             : <div className="text-center">{'You don\'t liked any show yet :)'}</div>}
         </Row>
       </>
