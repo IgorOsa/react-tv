@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import {
@@ -22,9 +21,9 @@ const SignUpPage = (props) => {
         newUser = await signup(values);
         formik.resetForm();
       } catch (error) {
+        // eslint-disable-next-line no-alert
         alert(error.message);
       }
-      // alert(JSON.stringify(values, null, 2));
       if (newUser) {
         // eslint-disable-next-line react/prop-types
         props.history.push(`/profile/${newUser.uid}`);

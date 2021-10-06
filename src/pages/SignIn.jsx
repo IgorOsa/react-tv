@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import {
@@ -10,6 +9,7 @@ const SignInPage = (props) => {
   const [isLoading, setLoading] = useState(false);
 
   const routeOnLogin = async (user) => {
+    // eslint-disable-next-line react/prop-types
     props.history.push(`/profile/${user.uid}`);
   };
 
@@ -25,6 +25,7 @@ const SignInPage = (props) => {
         user = await login(data);
         formik.resetForm();
       } catch (error) {
+        // eslint-disable-next-line no-alert
         alert(error.message);
       }
 
