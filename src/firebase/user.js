@@ -8,6 +8,7 @@ const createUserDocument = async (user) => {
     email: user.email,
     name: user.displayName,
     favorites: [],
+    likes: [],
   };
 
   return docRef.set(userProfile);
