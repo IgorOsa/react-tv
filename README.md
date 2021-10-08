@@ -1,6 +1,10 @@
-# Netflix Clone App 
+# Netflix Clone App
 
 Made with React/Redux Toolkit/Firebase - [Demo link](https://react-tv-c686c.web.app/)
+
+## Project Setup
+
+Before start see .env.example file for instructions and create .env file with Firebase project credentials.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
