@@ -1,13 +1,13 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import store from './app/store';
-import App from './App';
+import { Provider } from 'react-redux';
+import store from '../app/store';
+import Home from './Home';
 
-it('should renders <App /> page correctly', () => {
+it('should renders <Home /> page correctly', () => {
   const tree = renderer.create(
     <Provider store={store}>
-      <App />
+      <Home />
     </Provider>,
   )
     .toJSON();

@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should renders <Home /> page correctly 1`] = `
+Array [
+  <div
+    className="search-bar"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="d-flex justify-content-center p-2 m-3 row"
+      >
+        <div
+          className="col-12 col"
+        >
+          <form
+            className=""
+          >
+            <div
+              className="input-group input-group-sm"
+            >
+              <span
+                className="input-group-text"
+                id="inputGroup-sizing-sm"
+              >
+                Search
+              </span>
+              <input
+                aria-describedby="inputGroup-sizing-sm"
+                aria-label="Small"
+                className="form-control"
+                onChange={[Function]}
+                placeholder="Type to search"
+                role="search"
+                type="search"
+                value=""
+              />
+              <button
+                aria-expanded={false}
+                className="dropdown-toggle btn btn-secondary"
+                disabled={false}
+                id="dropdown-basic-button"
+                onClick={[Function]}
+                type="button"
+              >
+                Filter by Genre
+              </button>
+              <div
+                className="dropdown-menu"
+                style={Object {}}
+                x-placement="bottom-start"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="text-center pt-4 pb-2 col"
+      >
+        <h2>
+          Shows
+        </h2>
+      </div>
+    </div>
+    <div
+      className="row"
+    />
+  </div>,
+]
+`;

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should renders NotFound page correctly 1`] = `
+<div
+  className="error-page"
+>
+  <h1>
+    404: Page
+     
+    /someMockErrorlink
+     
+    Not Found!
+  </h1>
+  <p>
+    Back to
+     
+    <a
+      className="link-secondary"
+      href="/"
+      onClick={[Function]}
+    >
+      Home page
+    </a>
+  </p>
+</div>
+`;

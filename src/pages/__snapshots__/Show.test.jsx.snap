@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should renders <Home /> page correctly 1`] = `
+<div
+  className="pb-5 container"
+>
+  <div
+    className="loader-overlay"
+  >
+    <div
+      className="loader spinner-border"
+      role="status"
+    >
+      <span
+        className="visually-hidden"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
